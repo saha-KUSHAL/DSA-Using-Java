@@ -203,6 +203,28 @@ public class SinglyLinkedList<T> {
     }
     return temp.data;
   }
+  public T remove(int index) throws IndexOutOfBoundsException {
+    if (index < 0)
+      throw new IndexOutOfBoundsException("Index :" + index +
+                                          " can't be negettive");
+    if (index >= size())
+      throw new IndexOutOfBoundsException("Index :" + index +
+                                          " can't be greater or equal to size");
+    if (index == 0) {
+      T item = head.data;
+      head = head.next;
+      return item;
+    }
+    Node<T> temp = head;
+    while (index > 1) {
+      temp = temp.next;
+      index--;
+    }
+    Node<T> temp2 = temp.next.next;
+    T item = temp.next.data;
+    temp.next = temp2;
+    return item;
+  }
   public static void main(String[] args) {
     SinglyLinkedList<String> singlyll = new SinglyLinkedList<>();
     singlyll.printList();
@@ -220,5 +242,7 @@ public class SinglyLinkedList<T> {
     singlyll.set(5, "J");
     singlyll.printList();
     System.out.println("Element in index 4 is " + singlyll.get(4));
+    System.out.printf("Element at index 0 is %s removed\n", singlyll.remove(0));
+    singlyll.printList();
   }
 }
